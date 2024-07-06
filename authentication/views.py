@@ -1,14 +1,14 @@
-from django.contrib.auth.models import User
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import RegistrationUserSerializer
+from .serializers import RegistrationUserSerializer, UserProfileSerializer
+from .models import UserAccount
 
 
 class RegisterUserView(CreateAPIView):
     """Register user"""
     serializer_class = RegistrationUserSerializer
-    queryset = User.objects.all()
+    queryset = UserAccount.objects.all()
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
@@ -18,6 +18,11 @@ class RegisterUserView(CreateAPIView):
                 "id": response.data.get("id")
             }
         return response
+    
+class UserProfileView(RetrieveAPIView):
+    """User profile"""
+    queryset = UserAccount.objects.all()
+    serializer_class = UserProfileSerializer
 
 
 
