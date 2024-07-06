@@ -17,16 +17,20 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = (not ENV == "prod")
 ALLOWED_HOSTS = []
 
-
 # Application definition
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    # rest related
+    'rest_framework',
+    'rest_framework_simplejwt',
+    # custom apps
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -97,5 +101,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
 
+
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Rest framework config
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ]
+}
+
