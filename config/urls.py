@@ -5,8 +5,8 @@ URL configuration for config project.
 
 from django.contrib import admin
 from django.urls import path, include
+from common.urls import AUTH_BASE_URL
 
-AUTH_BASE_URL = "api/auth/"
 
 urlpatterns = [
     path('admin/', admin.site.urls),

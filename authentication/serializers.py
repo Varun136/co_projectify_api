@@ -27,3 +27,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'full_name', 'username', 'email'
         ]
+
+class ResetPasswordSerializer(serializers.Serializer):
+    """ Serializer for changing password """
+
+    token = serializers.CharField(max_length=255, required=True)
+    password = serializers.CharField(max_length=20, required=True)

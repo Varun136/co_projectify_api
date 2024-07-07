@@ -1,0 +1,12 @@
+from enum import Enum
+
+class Errors(Enum):
+    INVALID_TOKEN = "INAVLID_TOKEN"
+    NOT_FOUND = "NOT_FOUND"
+    INVALID_USER = "INVALID_USER"
+    USER_NOT_FOUND = "USER_NOT_FOUND"
+
+class Responses(Enum):
+    SEND_SUCCESS = "SEND_SUCCESS"
+    PASSWORD_RESET = "PASSWORD_RESET"
+    SUCCESS = "SUCCESS"

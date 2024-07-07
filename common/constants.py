@@ -1,0 +1,1 @@
+RESET_TOKEN_EXP_TIME = 10 # mins
