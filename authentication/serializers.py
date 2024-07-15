@@ -8,7 +8,7 @@ class RegistrationUserSerializer(serializers.ModelSerializer):
         model = UserAccount
         fields = [
             'id', 'username', 'first_name', 'last_name', 'email', 
-            'password', 'age', 'gender'
+            'password', 'dob', 'gender'
         ]
     
     def create(self, validated_data):

@@ -1,11 +1,13 @@
 import os
 import jwt
+from django.db.models import F
 from datetime import datetime, timedelta
 from common.constants import RESET_TOKEN_EXP_TIME
 from common.urls import PASSWORD_RESET_URL
 from common.response import Errors, Responses
 from config.settings import SECRET_KEY
 from .queries import get_user_obj
+from authentication.models import ConfirmationCode
 
 
 def get_password_reset_url(username):
@@ -38,3 +40,11 @@ def reset_password(serailizer_data):
     user.set_password(password)
     user.save()
     return True, Responses.PASSWORD_RESET.value
+
+
+def validate_confirmation_code(user_id, code):
+    return ConfirmationCode.objects.filter(
+        user_id=user_id, 
+        code=code,
+        last_updated_at__gt = datetime.now() - timedelta(minutes=5)
+    ).count() != 0

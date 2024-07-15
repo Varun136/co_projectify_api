@@ -5,6 +5,7 @@ class Errors(Enum):
     NOT_FOUND = "NOT_FOUND"
     INVALID_USER = "INVALID_USER"
     USER_NOT_FOUND = "USER_NOT_FOUND"
+    INVALID_CODE = "INVALID_CODE"
 
 class Responses(Enum):
     SEND_SUCCESS = "SEND_SUCCESS"

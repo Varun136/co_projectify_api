@@ -9,7 +9,7 @@ from .serializers import (
 from .models import UserAccount
 from common.utils import (
     add_event_to_reset_password, get_user_obj, reset_password, 
-    make_response
+    make_response, validate_confirmation_code, add_event_to_send_confirmation_code
 )
 from common.response import Errors, Responses
 
@@ -19,15 +19,33 @@ class RegisterUserView(CreateAPIView):
 
     serializer_class = RegistrationUserSerializer
     queryset = UserAccount.objects.all()
-
+    
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
-
         if response.status_code == status.HTTP_201_CREATED:
+            user_id = response.data.get("id")
+            user_email = response.data.get("email")
+            add_event_to_send_confirmation_code(user_id, user_email)
             response.data = {
                 "id": response.data.get("id")
             }
         return response
+
+
+class ValidateConfirmationCode(APIView):
+    """Validate the confirmation code for user signup"""
+
+    def post(self, request, pk):
+        code = request.data.get("code")
+        if not validate_confirmation_code(pk, code):
+            return make_response(
+                Errors.INVALID_CODE.value,
+                status.HTTP_400_BAD_REQUEST
+            )
+        user_obj = UserAccount.objects.get(id=pk)
+        user_obj.is_active = True
+        user_obj.save()
+        return make_response({}, status.HTTP_200_OK)
 
 
 class UserProfileView(RetrieveAPIView):
