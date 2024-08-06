@@ -7,6 +7,7 @@ import os
 import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
+from datetime import timedelta
 
 load_dotenv()
 
@@ -31,6 +32,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     # custom apps
     'authentication',
+    'main'
 ]
 
 MIDDLEWARE = [
@@ -114,3 +116,7 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = "authentication.UserAccount"
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),
+}

@@ -2,11 +2,11 @@ from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import (
+from authentication.serializers import (
     RegistrationUserSerializer, UserProfileSerializer,
     ResetPasswordSerializer
 )
-from .models import UserAccount
+from authentication.models import UserAccount
 from common.utils import (
     add_event_to_reset_password, get_user_obj, reset_password, 
     make_response, validate_confirmation_code, add_event_to_send_confirmation_code

@@ -10,5 +10,6 @@ from common.urls import AUTH_BASE_URL
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(AUTH_BASE_URL, include('authentication.urls'))
+    path(AUTH_BASE_URL, include('authentication.urls')),
+    path('', include('main.urls'))
 ]
